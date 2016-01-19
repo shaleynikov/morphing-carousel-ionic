@@ -3,14 +3,11 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl',
     function($scope) {
         $scope.items = [
-            { number: 1 },
-            { number: 2 },
-            { number: 3 },
-            { number: 4 },
-            { number: 5 },
-            { number: 6 },
-            { number: 7 }
         ];
+
+        for (var i = 0; i < 2000; i++) {
+            $scope.items.push({number: i});
+        }
 
         $scope.data = {
             selectedItem: $scope.items[2]

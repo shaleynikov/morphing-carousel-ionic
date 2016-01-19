@@ -16,6 +16,7 @@ angular.module('morphCarousel', [])
  * selected-item {*} - will contain selected item
  * identifier {*} - (optional) used to identify this morphCarousel with $morphCarousel factory
  * show-value {string} - (optional) if array of items contain objects this property will determine what value of the object will be shown in carousel
+ * min-item-size {integer} - minimal width of one item in pixels (20 by default)
  */
 .directive('morphCarousel', ['$ionicGesture', '$timeout', '$morphCarousel',
     function ($ionicGesture, $timeout, $morphCarousel) {
@@ -32,7 +33,9 @@ angular.module('morphCarousel', [])
 
             var minRotateAngle = 360 / scope.items.length;
 
-            radius = el[0].offsetWidth / 2;
+            // minWidth*items = 2*pi*r
+            var minSize = scope.minItemSize || 20; 
+            radius =  Math.max(minSize*scope.items.length/2/Math.PI, el[0].offsetWidth / 2);
 
             itemWidth = $morphCarousel.$getItemWidth(scope.items.length, radius);
 
@@ -189,7 +192,8 @@ angular.module('morphCarousel', [])
                 items: '=',
                 selectedItem: '=onSelected',
                 showValue: '@',
-                identifier: '@'
+                identifier: '@',
+                minItemSize: '@'
             },
             template: [
                 '<div class="morph-carousel-container">',
@@ -244,7 +248,7 @@ angular.module('morphCarousel', [])
         // Angle (half of it) in radians
         angleRad = (minRotateAngle / 2) * Math.PI / 180;
 
-        return radius * Math.sin(angleRad) * 2;
+        return (radius * Math.sin(angleRad) * 2);
     };
 
     /**
