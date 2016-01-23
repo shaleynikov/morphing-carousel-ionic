@@ -20,25 +20,14 @@ angular.module('starter.controllers', [])
     })
 
 .controller('ModalCtrl',
-    function($scope, $ionicModal, $morphCarousel) {
+    function($scope, $ionicModal, $morphCarousel, $timeout) {
 
         $scope.items = [
-            { letter: 'a' },
-            { letter: 'b' },
-            { letter: 'c' },
-            { letter: 'd' },
-            { letter: 'e' },
-            { letter: 'f' },
-            { letter: 'g' },
-            { letter: 'h' },
-            { letter: 'i' },
-            { letter: 'j' },
-            { letter: 'k' },
-            { letter: 'l' },
-            { letter: 'm' },
-            { letter: 'n' },
-            { letter: 'o' }
         ];
+
+        for (var i = 0; i < 2000; i++) {
+            $scope.items.push({number: i});
+        }
 
         $scope.selectedItem = $scope.items[4];
 
@@ -50,8 +39,9 @@ angular.module('starter.controllers', [])
         });
 
         $scope.openModal = function() {
-            $scope.modal.show();
-            $morphCarousel.update('modal-carousel');
+            $scope.modal.show().then(function() {
+                $morphCarousel.update('modal-carousel');
+            });
         };
 
         $scope.closeModal = function() {

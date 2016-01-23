@@ -34,7 +34,9 @@ angular.module('morphCarousel', [])
             var minRotateAngle = 360 / scope.items.length;
 
             // minWidth*items = 2*pi*r
-            var minSize = scope.minItemSize || 20; 
+
+            var minSize = scope.minItemSize || 20;
+
             radius =  Math.max(minSize*scope.items.length/2/Math.PI, el[0].offsetWidth / 2);
 
             itemWidth = $morphCarousel.$getItemWidth(scope.items.length, radius);
@@ -285,7 +287,9 @@ angular.module('morphCarousel', [])
 
         items = carouselEl[0].getElementsByClassName('morph-carousel__item');
 
-        radius = carouselEl[0].offsetWidth / 2;
+
+        var minSize = 70;
+        radius =  Math.max(minSize*items.length/2/Math.PI, carouselEl[0].offsetWidth / 2);
 
         minRotateAngle = 360 / items.length;
 
