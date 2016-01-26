@@ -65,7 +65,7 @@ angular.module('morphCarousel', [])
 
             $ionicGesture.on('drag', function (ev) {
                 var len = Math.ceil(scope.items.length / 2);
-                var k = Math.log(scope.items.length);
+                var k = Math.log(scope.items.length)*2;
                 currentAngle = carouselRotateAngle + ev.gesture.deltaX / el[0].offsetWidth * ( minRotateAngle * len ) / k;
                 isDragging = true;
                 setRotation(currentAngle);
@@ -73,7 +73,7 @@ angular.module('morphCarousel', [])
 
             $ionicGesture.on('dragend', function (ev) {
                 var velocity = 0;
-                var acceleration = 1.9;
+                var acceleration = 0.7;
                 isDragging = false;
                 currentAngle = stabilizeAngle(currentAngle);
                 setRotation(currentAngle);
